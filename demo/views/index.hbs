@@ -4,22 +4,171 @@
 </head>
 
 <script>
+function Queue() {
+  this.data = [];
+}
+
+Queue.prototype.add = function(record) {
+  this.data.unshift(record);
+}
+
+Queue.prototype.remove = function() {
+  this.data.pop();
+}
+
+Queue.prototype.first = function() {
+  return this.data[0];
+}
+
+Queue.prototype.last = function() {
+  return this.data[this.data.length - 1];
+}
+
+Queue.prototype.size = function() {
+  return this.data.length;
+}
+
+
 $( document ).ready(function() {
+    const recentQ = new Queue();
+    for(i = 0; i < 10; i++){
+      recentQ.add(400)
+    }
+    var yAxis = 0;
     console.log( "loaded!" );
     webgazer.begin(); // turns on wgazer
     webgazer.showPredictionPoints(true); //red dot
-    setTimeout(function(){
-      webgazer.end();
-      alert("data saved");
-    },3000);
+    // setTimeout(function(){
+    //   webgazer.end();
+    //   alert("data saved");
+    // },3000);
+
+    function scrollDown() {
+      window.scrollBy(0, yAxis + 200);
+      resetQ();
+    }
+
+    function scrollUp(){
+      window.scrollBy(0, yAxis - 200);
+      resetQ();
+    }
+
+    function resetQ(){
+      for (j = 0; j < recentQ.size(); j++){
+        recentQ.data[j] = 400
+      }
+    }
+
     webgazer.setGazeListener(function(data, elapsedTime) {
       if (data == null){
         return;
       }
-      console.log(data);
-    });
+      yAxis = data.y;
+      recentQ.remove();
+      recentQ.add(yAxis);
+      var upFlag = false;
+      var downFlag = false;
+      for (j = 0; j < recentQ.size(); j++){
+        if (recentQ.data[j] < 150){
+          downFlag = true;
+          upFlag = false;
+        } else if (recentQ.data[j] > 550) {
+          upFlag = true;
+          downFlag = false;
+        } else if ((downFlag && recentQ.data[j] > 150) || (upFlag && recentQ.data[j] < 550)) {
+          downFlag = false;
+          upFlag = false;
+          break;
+        } else {
+          downFlag = false;
+          upFlag = false;
+          break;
+        }
+      }
+      console.log(recentQ.data);
+      if (upFlag) {
+        scrollUp();
+      } else if (downFlag) {
+        scrollDown();
+      }
 
+    });
 });
 </script>
 <h1>{{title}}</h1>
 <p>Welcome to {{title}}</p>
+<H1>This is a Header</H1>
+
+<H2>ONE HEADER</H2>
+
+Send me mail at <a href="mailto:support@yourcompany.com">
+
+support@yourcompany.com</a>.
+
+<P> This is a new paragraph!
+
+<P> <B>This is a new paragraph!</B>
+
+<BR> <B><I>This is a new sentence without a paragraph break, in bold italics.</I></B>
+
+<HR>
+  <H1>This is a Header</H1>
+
+<H2>TWO HEADER</H2>
+
+Send me mail at <a href="mailto:support@yourcompany.com">
+
+support@yourcompany.com</a>.
+
+<P> This is a new paragraph!
+
+<P> <B>This is a new paragraph!</B>
+
+<BR> <B><I>This is a new sentence without a paragraph break, in bold italics.</I></B>
+
+<HR>
+  <H1>This is a Header</H1>
+
+<H2>THREE HEADER</H2>
+
+Send me mail at <a href="mailto:support@yourcompany.com">
+
+support@yourcompany.com</a>.
+
+<P> This is a new paragraph!
+
+<P> <B>This is a new paragraph!</B>
+
+<BR> <B><I>This is a new sentence without a paragraph break, in bold italics.</I></B>
+
+<HR>
+  <H1>This is a Header</H1>
+
+<H2>FOUR HEADER</H2>
+
+Send me mail at <a href="mailto:support@yourcompany.com">
+
+support@yourcompany.com</a>.
+
+<P> This is a new paragraph!
+
+<P> <B>This is a new paragraph!</B>
+
+<BR> <B><I>This is a new sentence without a paragraph break, in bold italics.</I></B>
+
+<HR>
+  <H1>This is a Header</H1>
+
+<H2>FIVE HEADER</H2>
+
+Send me mail at <a href="mailto:support@yourcompany.com">
+
+support@yourcompany.com</a>.
+
+<P> This is a new paragraph!
+
+<P> <B>This is a new paragraph!</B>
+
+<BR> <B><I>This is a new sentence without a paragraph break, in bold italics.</I></B>
+
+<HR>
