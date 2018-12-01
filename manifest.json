@@ -1,14 +1,21 @@
 {
   "manifest_version": 2,
 
-  "name": "Modify CSS and HTML",
+  "name": "Ocubrowse",
   "version": "0.1.0",
-  "description": "Lateral blog post demo extension",
+  "description": "Browse the web hands-free with a chrome extension",
+  "author": "Real cool BU students",
+
+  "browser_action": {
+    "default_title": "Default title",
+    "default_popup": "html/popup.html"
+  },
 
   "content_scripts": [{
-    "css": ["styles.css"],
-    "js": ["content.js"],
+    "css": ["styles/styles.css"],
+    "js": ["js/content.js"],
     "matches": ["<all_urls>"]
-  }]
+  }],
 
+  "permissions": ["activeTab"]
 }
