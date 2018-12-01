@@ -11,10 +11,10 @@
     "default_popup": "html/popup.html"
   },
   
-  "background": {
-   "scripts": ["demo/public/javascripts/webgazer.js", "js/background.js"]
+//  "background": {
+//   "scripts": ["demo/public/javascripts/webgazer.js", "js/background.js"]
    // "persistent": false
-  },
+//  },
 
   //"content_scripts": [{
     //"js": ["js/background.js"],
@@ -22,7 +22,7 @@
     //"matches": ["<all_urls>"]
   //}],
 
-  "browser_action": {},
+//  "browser_action": {},
 
   "permissions": ["activeTab"]
 }
