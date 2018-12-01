@@ -4,10 +4,13 @@
  * Module dependencies.
  */
 
+console.log("www loaded, unlikely");
+
 var app = require('../app');
 var debug = require('debug')('demo:server');
 var http = require('http');
 
+console.log("www loaded, probably");
 /**
  * Get port from environment and store in Express.
  */
