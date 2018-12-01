@@ -10,19 +10,19 @@
     "default_title": "Default title",
     "default_popup": "html/popup.html"
   },
-  
-//  "background": {
-//   "scripts": ["demo/public/javascripts/webgazer.js", "js/background.js"]
-   // "persistent": false
-//  },
+
+  //  "background": {
+  //   "scripts": ["../../demo/public/javascripts/webgazer.js", "js/background.js"]
+  // "persistent": false
+  //  },
 
   //"content_scripts": [{
-    //"js": ["js/background.js"],
-    //"css": ["styles/styles.css"],
-    //"matches": ["<all_urls>"]
+  //"js": ["js/background.js"],
+  //"css": ["styles/styles.css"],
+  //"matches": ["<all_urls>"]
   //}],
 
-//  "browser_action": {},
+  //  "browser_action": {},
 
   "permissions": ["activeTab"]
 }
