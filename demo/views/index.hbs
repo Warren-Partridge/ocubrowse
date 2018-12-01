@@ -35,7 +35,6 @@ $( document ).ready(function() {
       recentQ.add(400)
     }
     var yAxis = 0;
-    console.log( "loaded!" );
     webgazer.begin(); // turns on wgazer
     webgazer.showPredictionPoints(true); //red dot
     // setTimeout(function(){
@@ -43,19 +42,32 @@ $( document ).ready(function() {
     //   alert("data saved");
     // },3000);
 
+    function avgVal(){
+      var sum = 0;
+      for (x = 0; x < recentQ.size(); x++){
+        sum += recentQ.data[x];
+      }
+      return sum / recentQ.size();
+    }
+
     function scrollDown() {
-      window.scrollBy(0, yAxis + 200);
+      console.log("Scrolling down");
+      console.log(avgVal() + 200);
+      window.scrollBy(0, avgVal() + 200);
       resetQ();
     }
 
     function scrollUp(){
-      window.scrollBy(0, yAxis - 200);
+      console.log("Scrolling up");
+      console.log(-1 * avgVal());
+      window.scrollBy(0, (-1 * avgVal()));
       resetQ();
     }
 
     function resetQ(){
       for (j = 0; j < recentQ.size(); j++){
-        recentQ.data[j] = 400
+        recentQ.remove();
+        recentQ.add(400);
       }
     }
 
@@ -66,26 +78,20 @@ $( document ).ready(function() {
       yAxis = data.y;
       recentQ.remove();
       recentQ.add(yAxis);
-      var upFlag = false;
-      var downFlag = false;
+      var upFlag = true;
+      var downFlag = true;
       for (j = 0; j < recentQ.size(); j++){
-        if (recentQ.data[j] < 150){
-          downFlag = true;
-          upFlag = false;
-        } else if (recentQ.data[j] > 550) {
-          upFlag = true;
+        if (recentQ.data[j] < 200){
           downFlag = false;
-        } else if ((downFlag && recentQ.data[j] > 150) || (upFlag && recentQ.data[j] < 550)) {
-          downFlag = false;
-          upFlag = false;
           break;
-        } else {
-          downFlag = false;
+        }
+      }
+      for (k = 0; k < recentQ.size(); k++){
+        if (recentQ.data[k] > 500){
           upFlag = false;
           break;
         }
       }
-      console.log(recentQ.data);
       if (upFlag) {
         scrollUp();
       } else if (downFlag) {
