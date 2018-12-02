@@ -34,4 +34,12 @@ function pauseWebgazer() {
   });
 }
 
-document.getElementById('pause-webgazer').addEventListener('click', pauseWebgazer);
+document.getElementById('resume-webgazer').addEventListener('click', resumeWebgazer);
+
+function resumeWebgazer() {
+  chrome.tabs.executeScript({
+  file: 'js/resume.js'
+});
+}
+
+document.getElementById('resume-webgazer').addEventListener('click', resumeWebgazer);
