@@ -24,3 +24,14 @@ function toggleReddot() {
 }
 
 document.getElementById('toggle-reddot').addEventListener('click', toggleReddot);
+
+
+
+
+function pauseWebgazer() {
+    chrome.tabs.executeScript({
+    file: 'js/pause.js'
+  });
+}
+
+document.getElementById('pause-webgazer').addEventListener('click', pauseWebgazer);
