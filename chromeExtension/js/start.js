@@ -43,16 +43,14 @@ function avgVal() {
 }
 
 function scrollDown() {
-  console.log("Scrolling down");
-  console.log(avgVal() + 200);
-  window.scrollBy(0, avgVal() + 200);
+  console.log("Scrolling down", yAxis);
+  window.scrollBy(0, 7); // first val is x value you want to change by; second val is y value
   resetQ();
 }
 
 function scrollUp() {
-  console.log("Scrolling up");
-  console.log(-1 * avgVal());
-  window.scrollBy(0, -1 * avgVal());
+  console.log("Scrolling up ", yAxis);
+  window.scrollBy(0, -7);
   resetQ();
 }
 
@@ -63,30 +61,51 @@ function resetQ() {
   }
 }
 
+function getAvgYAxis() {
+  var total = 0;
+  for (i = 0; i < recentQ.size(); i++) {
+    total += recentQ.data[i];
+  }
+
+  return total / recentQ.size()
+}
+
 webgazer.setGazeListener(function(data, elapsedTime) {
   if (data == null) {
     return;
   }
+
+  // adjust yaxis
   yAxis = data.y;
   recentQ.remove();
   recentQ.add(yAxis);
-  var upFlag = true;
-  var downFlag = true;
-  for (j = 0; j < recentQ.size(); j++) {
-    if (recentQ.data[j] < 200) {
-      downFlag = false;
-      break;
-    }
-  }
-  for (k = 0; k < recentQ.size(); k++) {
-    if (recentQ.data[k] > 500) {
-      upFlag = false;
-      break;
-    }
-  }
-  if (upFlag) {
-    scrollUp();
-  } else if (downFlag) {
-    scrollDown();
-  }
+
+  var avgYAxis = getAvgYAxis();
+
+  console.log("current avgyaxis is ", avgYAxis);
+
+  if (avgYAxis > 0 && avgYAxis < 150) { scrollUp(); }
+
+  else if (avgYAxis > 650 && avgYAxis < 800) { scrollDown(); }
+
+  // var upFlag = true;
+  // var downFlag = true;
+  //
+  // for (j = 0; j < recentQ.size(); j++) {
+  //   if (recentQ.data[j] < 200) {
+  //     downFlag = false;
+  //     break;
+  //   }
+  // }
+  // for (k = 0; k < recentQ.size(); k++) {
+  //   if (recentQ.data[k] > 500) {
+  //     upFlag = false;
+  //     break;
+  //   }
+  // }
+  // if (upFlag) {
+  //   scrollUp();
+  // } else if (downFlag) {
+  //   scrollDown();
+  // }
 });
