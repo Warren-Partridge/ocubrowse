@@ -6,7 +6,10 @@ function startWebgazer() {
     file: "js/webgazer.js"
   });
   chrome.tabs.executeScript({
-    file: "js/makeOverlay.js"
+    file: "js/makeBackButtonOverlay.js"
+  });
+  chrome.tabs.executeScript({
+    file: "js/makeClickButtonOverlay.js"
   });
   chrome.tabs.executeScript({
     file: "js/start.js"
