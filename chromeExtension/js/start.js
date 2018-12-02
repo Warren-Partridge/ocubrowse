@@ -43,6 +43,9 @@ function resetQ() {
   }
 }
 
+function resetHoverTime() {
+  clickButtonHoverTime = 0;
+}
 
 function getAvgXAxis() {
   var total = 0;
@@ -65,6 +68,8 @@ function getAvgYAxis() {
 
 
 
+var clickButtonHoverTime = 0;
+
 webgazer.setGazeListener(function(data, elapsedTime) {
   if (data == null) {
     return;
@@ -83,12 +88,24 @@ webgazer.setGazeListener(function(data, elapsedTime) {
   console.log("current avgxaxis is ", avgXAxis);
   console.log("current avgyaxis is ", avgYAxis);
 
-  if (avgYAxis > 0 && avgYAxis < 150) { scrollUp(); }
+  if (avgYAxis > 0 && avgYAxis < 150) { scrollUp(); resetHoverTime(); }
 
-  else if (avgYAxis > 650 && avgYAxis < 800) { scrollDown(); }
+  else if (avgYAxis > 650 && avgYAxis < 800) { scrollDown(); resetHoverTime(); }
 
   else if ((avgYAxis > 150 && avgYAxis < 650) && (avgXAxis > 1150 && avgXAxis < 1400)) {
-    console.log("BUTTON PRESS!");
+    clickButtonHoverTime++; // If we get here the user might be trying to press the button, so let's increment a var to keep track of how long they have looked here
+
+    if (clickButtonHoverTime >= 100) { // If they have consistently looked here, then press the button
+      console.log("BUTTON PRESS!", clickButtonHoverTime);
+    }
+
+    else {
+      console.log("Haven't hovered long enough.", clickButtonHoverTime);
+    }
+  }
+
+  else {
+    resetHoverTime();
   }
 
 
