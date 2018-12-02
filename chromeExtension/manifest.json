@@ -17,18 +17,19 @@
     "128": "icons/icon128.png"
   },
 
-//    "background": {
-//     "scripts": ["js/background.js"]
-  // "persistent": false
-//    },
+  "background": {
+   "scripts": ["js/background.js"]
+//   "persistent": false
+  },
 
-//  "content_scripts": [{
-//  "js": ["js/start.js"],
+  "content_scripts": [{
+  "js": ["js/content.js"],
   //"css": ["styles/styles.css"],
-  //"matches": ["<all_urls>"]
-//  }],
+  "matches": ["<all_urls>"],
+    "run_at": "document_end"
+  }],
 
   //  "browser_action": {},
 
-  "permissions": ["activeTab", "history"]
+  "permissions": ["activeTab", "history", "https://ajax.googleapis.com/"]
 }
