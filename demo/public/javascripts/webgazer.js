@@ -11135,7 +11135,7 @@ function store_points(x, y, k) {
     /**
      * Set whether the face overlay is visible or not.
      * @param {*} bool 
-     * @return {webgazer} this
+     * @return {webgazer} this`
      */
     webgazer.showFaceOverlay = function(val) {
         webgazer.params.showFaceOverlay = val;

@@ -18,3 +18,39 @@
 }*/
 
 
+h1 {
+  font-family: 'Roboto';
+  font-weight: bold;
+}
+p {
+  font-family: 'Roboto';
+  font-size: 15px;
+}
+button {
+  font-weight: bold;
+  font-family: 'Roboto';
+  display: inline-block;
+  padding: 10px 5px;
+  font-size: 15px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 7px #999;
+}
+
+button:hover {background-color: #3e8e41}
+
+button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+.center {
+  padding: 10px 20px;
+  background-color: rgb(231, 231, 231)
+}

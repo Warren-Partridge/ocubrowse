@@ -1,7 +1,7 @@
 console.log( "start.js loaded!" );
 
 webgazer.begin(); // turns on wgazer
-webgazer.showPredictionPoints(true); //red dot
+webgazer.showPredictionPoints(true);
 // setTimeout(function(){
 //   webgazer.end();
 //   alert("data saved");
