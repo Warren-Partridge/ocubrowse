@@ -1,4 +1,4 @@
-console.log( "start.js loaded!" );
+console.log( "stopdot.js loaded!" );
 
 document
     .getElementById("webgazerGazeDot")

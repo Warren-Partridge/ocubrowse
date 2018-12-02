@@ -1,3 +1,3 @@
-console.log( "start.js loaded!" );
+console.log( "resume.js loaded!" );
 
 webgazer.resume()
