@@ -104,37 +104,8 @@ webgazer.setGazeListener(function(data, elapsedTime) {
   var middleHeight = $(window).scrollTop() + windowHeightOverTwo;
   var links = document.getElementsByTagName("a");
 
-  if (avgYAxis > -100 && avgYAxis < 150) {
-    scrollUp();
-    resetHoverTime();
-  } else if (avgYAxis > 650 && avgYAxis < 1000) {
-    scrollDown();
-    resetHoverTime();
-  } else if (
-    avgYAxis > 150 &&
-    avgYAxis < 650 &&
-    (avgXAxis > 1150 && avgXAxis < 1400)
-  ) {
-    incrementHoverTime(); // If we get here the user might be trying to press the button, so let's increment a var to keep track of how long they have looked here
-
-    if (clickButtonHoverTime >= 100) {
-      // If they have consistently looked here, then press the button
-      console.log("BUTTON PRESS!", clickButtonHoverTime);
-      window.open("https://www.google.com", currentLinkToBeClicked);
-    } else {
-      console.log("Haven't hovered long enough.", clickButtonHoverTime);
-    }
-  } else {
-    resetHoverTime();
-  }
-
-  if (avgYAxis > 0 && avgYAxis < 150) {
-    scrollUp();
-  } else if (avgYAxis > 650 && avgYAxis < 800) {
-    scrollDown();
-  }
-
   for (var i = 0, l = links.length; i < l; i++) {
+
     if (isScrolledIntoView(links[i])) {
       var position = $(links[i]).offset();
       var linkHeight = position.top;
@@ -151,6 +122,39 @@ webgazer.setGazeListener(function(data, elapsedTime) {
     } else {
       links[i].style.backgroundColor = "";
     }
+  }
+
+
+  if (avgYAxis > -100 && avgYAxis < 150) {
+    scrollUp();
+    resetHoverTime();
+  } else if (avgYAxis > 650 && avgYAxis < 1000) {
+    scrollDown();
+    resetHoverTime();
+  } else if (
+    avgYAxis > 150 &&
+    avgYAxis < 650 &&
+    (avgXAxis > 1150 && avgXAxis < 1400)
+  ) {
+    incrementHoverTime(); // If we get here the user might be trying to press the button, so let's increment a var to keep track of how long they have looked here
+
+    if (clickButtonHoverTime >= 100) {
+      // If they have consistently looked here, then press the button
+      console.log("BUTTON PRESS!", clickButtonHoverTime);
+
+      window.open(currentLinkToBeClicked.href, "_self");
+      resetHoverTime();
+    } else {
+      console.log("Haven't hovered long enough.", clickButtonHoverTime);
+    }
+  } else {
+    resetHoverTime();
+  }
+
+  if (avgYAxis > 0 && avgYAxis < 150) {
+    scrollUp();
+  } else if (avgYAxis > 650 && avgYAxis < 800) {
+    scrollDown();
   }
 });
 
