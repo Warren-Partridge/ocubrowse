@@ -1,3 +1,4 @@
+
 function Queue() {
   this.data = [];
 }
@@ -22,25 +23,6 @@ Queue.prototype.size = function() {
   return this.data.length;
 };
 
-const recentQ = new Queue();
-for (i = 0; i < 10; i++) {
-  recentQ.add(400);
-}
-var yAxis = 0;
-webgazer.begin(); // turns on wgazer
-webgazer.showPredictionPoints(true); //red dot
-// setTimeout(function(){
-//   webgazer.end();
-//   alert("data saved");
-// },3000);
-
-function avgVal() {
-  var sum = 0;
-  for (x = 0; x < recentQ.size(); x++) {
-    sum += recentQ.data[x];
-  }
-  return sum / recentQ.size();
-}
 
 function scrollDown() {
   console.log("Scrolling down", yAxis);
@@ -61,51 +43,66 @@ function resetQ() {
   }
 }
 
-function getAvgYAxis() {
+
+function getAvgXAxis() {
   var total = 0;
   for (i = 0; i < recentQ.size(); i++) {
-    total += recentQ.data[i];
+    total += recentQ.data[i][0];
   }
 
   return total / recentQ.size()
 }
+
+function getAvgYAxis() {
+  var total = 0;
+  console.log(recentQ.data[i]);
+  for (i = 0; i < recentQ.size(); i++) {
+    total += recentQ.data[i][1];
+  }
+
+  return total / recentQ.size()
+}
+
+
 
 webgazer.setGazeListener(function(data, elapsedTime) {
   if (data == null) {
     return;
   }
 
-  // adjust yaxis
-  yAxis = data.y;
-  recentQ.remove();
-  recentQ.add(yAxis);
+  var xAxis = data.x;
+  var yAxis = data.y;
 
+  recentQ.remove();
+  recentQ.add([xAxis, yAxis]);
+
+
+  var avgXAxis = getAvgXAxis();
   var avgYAxis = getAvgYAxis();
 
+  console.log("current avgxaxis is ", avgXAxis);
   console.log("current avgyaxis is ", avgYAxis);
 
   if (avgYAxis > 0 && avgYAxis < 150) { scrollUp(); }
 
   else if (avgYAxis > 650 && avgYAxis < 800) { scrollDown(); }
 
-  // var upFlag = true;
-  // var downFlag = true;
-  //
-  // for (j = 0; j < recentQ.size(); j++) {
-  //   if (recentQ.data[j] < 200) {
-  //     downFlag = false;
-  //     break;
-  //   }
-  // }
-  // for (k = 0; k < recentQ.size(); k++) {
-  //   if (recentQ.data[k] > 500) {
-  //     upFlag = false;
-  //     break;
-  //   }
-  // }
-  // if (upFlag) {
-  //   scrollUp();
-  // } else if (downFlag) {
-  //   scrollDown();
-  // }
+  else if ((avgYAxis > 150 && avgYAxis < 650) && (avgXAxis > 1150 && avgXAxis < 1400)) {
+    console.log("BUTTON PRESS!");
+  }
+
+
 });
+
+
+const recentQ = new Queue();
+for (i = 0; i < 10; i++) {
+  recentQ.add(400);
+}
+var yAxis = 0;
+webgazer.begin(); // turns on wgazer
+webgazer.showPredictionPoints(true); //red dot
+// setTimeout(function(){
+//   webgazer.end();
+//   alert("data saved");
+// },3000);
