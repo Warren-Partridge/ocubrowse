@@ -168,15 +168,13 @@ webgazer.setGazeListener(function(data, elapsedTime) {
 
     if (backButtonHoverTime >= 100) {
       // If they have consistently looked here, then press the button
-      console.log("BUTTON PRESS!", clickButtonHoverTime);
+      console.log("BUTTON PRESS!", backButtonHoverTime);
 
-      // TODO: Make it go back
-      // chrome.tabs.goBack();
-      // chrome.tabs.executeScript(null,{"code": "window.history.back()"});
+      history.go(-1);
 
       resetHoverTime();
     } else {
-      console.log("Haven't hovered long enough.", clickButtonHoverTime);
+      console.log("Haven't hovered long enough.", backButtonHoverTime);
     }
   }
 

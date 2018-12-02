@@ -17,18 +17,18 @@
     "128": "icons/icon128.png"
   },
 
-  //  "background": {
-  //   "scripts": ["../../demo/public/javascripts/webgazer.js", "js/background.js"]
+//    "background": {
+//     "scripts": ["js/background.js"]
   // "persistent": false
-  //  },
+//    },
 
-  "content_scripts": [{
-  "js": ["js/start.js"],
+//  "content_scripts": [{
+//  "js": ["js/start.js"],
   //"css": ["styles/styles.css"],
   //"matches": ["<all_urls>"]
-  }],
+//  }],
 
   //  "browser_action": {},
 
-  "permissions": ["activeTab"]
+  "permissions": ["activeTab", "history"]
 }
