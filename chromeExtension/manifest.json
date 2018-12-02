@@ -18,8 +18,8 @@
   },
 
   "background": {
-   "scripts": ["js/background.js"]
-//   "persistent": false
+   "scripts": ["js/background.js"],
+  "persistent": true
   },
 
   "content_scripts": [{
@@ -31,5 +31,5 @@
 
   //  "browser_action": {},
 
-  "permissions": ["activeTab", "history", "https://ajax.googleapis.com/"]
+  "permissions": ["activeTab", "history", "https://ajax.googleapis.com/", "*://*/*"]
 }
