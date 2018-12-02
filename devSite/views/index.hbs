@@ -9,47 +9,39 @@
 
 <body>
   <div class="container-fluid" id="wrapper">
-
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg transparent fixed-top" id="mainNav">
-      <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">Ocubrowse</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          Menu
-          <i class="fas fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#about">Download</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#projects">Calibrate</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
     <!-- Title for the site -->
     <div class="row" id="mainTitle">
-      <div class="col-md offset-md-4">
-        <div class="row" id="title">
-          Ocubrowse
+      <div class="col-md-4 offset-md-1">
+        <div class="row">
+          <img src="images/logo.png" id="title"/>
+        </div>
+        <div class="row" id="catchPhrase">
+          <div class="col-md-10">
+            Browse the web hands-free with a chrome extension
+          </div>
         </div>
         <div class="row" id="description">
-          little description here just to go bc I'm too lazy to get Lorem Ipsum
+          <div class="col-md-10">
+            Ocubrowse is an accessibility-focused Chrome extension that lets you
+            browse the web using only your eyes. Look to the top of the screen to
+            scroll up, to the bottom to scroll down, or hover over buttons in our
+            overlay to click or go back a page. All of this is possible after a short
+            calibration period to train our neural network.
+           </div>
         </div>
         <div class="row" id="buttons">
           <div class="col-md">
-            <button type="button" class="btn btn-outline-light">
+            <button type="button" class="btn btn-secondary">
               Download
             </button>
-            <button type="button" class="btn btn-outline-light">
+            <button type="button" class="btn btn-secondary" style="margin-left:30px;">
               Callibrate
             </button>
           </div>
         </div>
+      </div>
+      <div class="col-md-6">
+        <img src="/images/mike.png" id="mike"/>
       </div>
     </div>
   </div>

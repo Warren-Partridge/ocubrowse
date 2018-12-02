@@ -1,5 +1,5 @@
 #wrapper {
-  background-image: url("/images/background_img.jpg");
+  background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
   background-repeat: no-repeat;
   height:100vh;
   background-size: cover;
@@ -8,15 +8,10 @@
 
 #mainTitle {
   display: flex;
-  align-items: center;
-  min-height: 100%;
-  text-align: center;
-}
-
-#mainNav {
-  background-color: rgba(0, 0, 0, 0.4);
-  padding: 10px 0 10px 0;
-  font-family: "Roboto", sans-serif;
+  /* align-items: center; */
+  /* min-height: 100%; */
+  text-align: left;
+  padding-top: 8%;
 }
 
 a {
@@ -32,15 +27,30 @@ body {
 }
 
 #title {
-  font-size: 5em;
+  height: 15em;
+  width: auto;
+  /* margin-left: -17px; */
+}
+
+#catchPhrase {
+  font-size: 2em;
   font-weight: 700;
-  color: #e0e0e0;
+  margin-top: -1.5em;
 }
 
 #description {
+  margin-top: 2em;
   font-family: "Open Sans", sans-serif;
+  /* padding-top: -10% */
 }
 
 #buttons {
+  margin-top: 3em;
+}
 
+#mike {
+  width: 100%;
+  height:auto;
+  margin-top: 100px;
+  border-radius: 15px;
 }
