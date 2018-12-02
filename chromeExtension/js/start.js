@@ -94,6 +94,26 @@ function getAvgYAxis() {
   return total / recentQ.size();
 }
 
+
+function saveDataBeforePageChange() {
+  webgazer.end();
+
+  var unparsedStorage = window.localStorage.getItem("webgazerGlobalData");
+
+  chrome.runtime.sendMessage({command: "save data", webgazerData: unparsedStorage});
+
+
+
+  // settings = storage.settings;
+  // data = storage.data;
+  // for (var reg in regs) {
+  //   regs[reg].setData(storage.data);
+  // }
+
+
+  alert("data saved");
+}
+
 var clickButtonHoverTime = 0;
 var backButtonHoverTime = 0;
 webgazer.setGazeListener(function(data, elapsedTime) {
@@ -154,6 +174,8 @@ webgazer.setGazeListener(function(data, elapsedTime) {
       // If they have consistently looked here, then press the button
       console.log("BUTTON PRESS!", clickButtonHoverTime);
 
+      saveDataBeforePageChange();
+
       window.open(currentLinkToBeClicked.href, "_self");
       resetHoverTime();
     } else {
@@ -169,6 +191,8 @@ webgazer.setGazeListener(function(data, elapsedTime) {
     if (backButtonHoverTime >= 100) {
       // If they have consistently looked here, then press the button
       console.log("BUTTON PRESS!", backButtonHoverTime);
+
+      saveDataBeforePageChange();
 
       history.go(-1);
 
@@ -196,7 +220,60 @@ for (i = 0; i < 10; i++) {
 var yAxis = 0;
 webgazer.begin(); // turns on wgazer
 webgazer.showPredictionPoints(true); //red dot
+
+// chrome.runtime.sendMessage({command: "load data"}, function(response) {
+//   console.log(response.webgazerResponse);
+// });
+webgazer.loadGlobalData();
+// chrome.storage.local.get(['myKey'], function(result) {
+//   console.log(result.myKey);
+//
+//   var pulledVal = JSON.parse(result.myKey);
+//   settings = pulledVal.settings;
+//   data = pulledVal.data;
+//   for (var reg in regs) {
+//     regs[reg].setData(storage.data);
+//   }
+//
+// });
+
+
+
+//
+// var storage = JSON.parse(window.localStorage.getItem(localstorageLabel)) || defaults;
+// settings = storage.settings;
+// data = storage.data;
+// for (var reg in regs) {
+//   regs[reg].setData(storage.data);
+// }
+
 // setTimeout(function(){
 //   webgazer.end();
 //   alert("data saved");
 // },3000);
+
+
+// /**
+//  * Loads the global data and passes it to the regression model
+//  */
+// function loadGlobalData() {
+//   var storage = JSON.parse(window.localStorage.getItem(localstorageLabel)) || defaults;
+//   settings = storage.settings;
+//   data = storage.data;
+//   for (var reg in regs) {
+//     regs[reg].setData(storage.data);
+//   }
+// }
+//
+// /**
+//  * Constructs the global storage object and adds it to local storage
+//  */
+// function setGlobalData() {
+//   var storage = {
+//     'settings': settings,
+//     'data': regs[0].getData() || data
+//   };
+//   window.localStorage.setItem(localstorageLabel, JSON.stringify(storage));
+//   //TODO data should probably be stored in webgazer object instead of each regression model
+//   //     -> requires duplication of data, but is likely easier on regression model implementors
+// }

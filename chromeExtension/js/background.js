@@ -36,7 +36,8 @@
 
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    console.log('The request has been received from the content script.');
+  console.log(request);
+  if (request.command == "start webgazer") {
     chrome.tabs.executeScript({
       file: "js/jquery.min.js"
     });
@@ -52,6 +53,24 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     chrome.tabs.executeScript({
       file: "js/start.js"
     });
+
+    sendResponse({hi: "hello"});
+  }
+
+  else if (request.command == "save data") {
+    console.log(request);
+    chrome.storage.sync.set({"myKey": request.webgazerData}, function() {
+      console.log('Value is set to ' + request.webgazerData);
+    });
+  }
+
+  else if (request.command == "load data") {
+    chrome.storage.sync.get(['myKey'], function(result) {
+      console.log('Value currently is ' + result.key);
+      console.log(result);
+      sendResponse({webgazerResponse: "hello"});
+    });
+  }
 });
 
 

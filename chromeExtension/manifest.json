@@ -31,5 +31,5 @@
 
   //  "browser_action": {},
 
-  "permissions": ["activeTab", "history", "https://ajax.googleapis.com/", "*://*/*"]
+  "permissions": ["activeTab", "history", "https://ajax.googleapis.com/", "*://*/*", "storage"]
 }

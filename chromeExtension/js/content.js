@@ -1,7 +1,7 @@
 // setTimeout(function(){ chrome.runtime.sendMessage({ from: 'content', message: 'Information from webpage.' }); }, 3000);
 
 chrome.runtime.sendMessage(
-    "foo",
+  {command: "start webgazer"},
     function( response ) {
         console.log(response);
     } );

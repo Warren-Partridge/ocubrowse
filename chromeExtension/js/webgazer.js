@@ -10834,27 +10834,45 @@ function store_points(x, y, k) {
         document.removeEventListener('mousemove', moveListener, true);
     };
 
-    /**
-     * Loads the global data and passes it to the regression model
-     */
-    function loadGlobalData() {
-        var storage = JSON.parse(window.localStorage.getItem(localstorageLabel)) || defaults;
-        settings = storage.settings;
-        data = storage.data;
-        for (var reg in regs) {
-            regs[reg].setData(storage.data);
-        }
-    }
+    // /**
+    //  * Loads the global data and passes it to the regression model
+    //  */
+    // function loadGlobalData() {
+    //     var storage = JSON.parse(window.localStorage.getItem(localstorageLabel)) || defaults;
+    //     settings = storage.settings;
+    //     data = storage.data;
+    //     for (var reg in regs) {
+    //         regs[reg].setData(storage.data);
+    //     }
+    // }
+
+  /**
+   * Loads the global data and passes it to the regression model
+   */
+  function loadGlobalData() {
+
+    chrome.storage.sync.get(['myKey'], function(result) {
+      console.log('storage!', result.myKey);
+
+      var pulledVal = JSON.parse(result.myKey);
+      settings = pulledVal.settings;
+      data = pulledVal.data;
+      for (var reg in regs) {
+        regs[reg].setData(storage.data);
+      }
+
+    });
+  }
 
    /**
     * Constructs the global storage object and adds it to local storage
     */
     function setGlobalData() {
-        var storage = {
-            'settings': settings,
-            'data': regs[0].getData() || data
-        };
-        window.localStorage.setItem(localstorageLabel, JSON.stringify(storage));
+        // var storage = {
+        //     'settings': settings,
+        //     'data': regs[0].getData() || data
+        // };
+        // window.localStorage.setItem(localstorageLabel, JSON.stringify(storage));
         //TODO data should probably be stored in webgazer object instead of each regression model
         //     -> requires duplication of data, but is likely easier on regression model implementors
     }
