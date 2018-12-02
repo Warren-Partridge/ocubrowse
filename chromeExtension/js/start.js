@@ -51,17 +51,28 @@ function resetQ() {
 
 function resetHoverTime() {
   clickButtonHoverTime = 0;
-  var toSet = "rgba(47, 208, 89, 0)";
+  backButtonHoverTime = 0;
+  var toSetClick = "rgba(47, 208, 89, 0)";
+  var toSetBack = "rgba(171, 46, 185, 0)";
 
-  document.getElementById("overlay-click-button").style.backgroundColor = toSet;
+  document.getElementById("overlay-click-button").style.backgroundColor = toSetClick;
+  document.getElementById("overlay-back-button").style.backgroundColor = toSetBack;
 }
 
-function incrementHoverTime() {
+function incrementClickButtonHoverTime() {
   clickButtonHoverTime++;
 
   var toSet = "rgba(47, 208, 89, " + clickButtonHoverTime / 100 + ")";
 
   document.getElementById("overlay-click-button").style.background = toSet;
+}
+
+function incrementBackButtonHoverTime() {
+  backButtonHoverTime++;
+
+  var toSet = "rgba(171, 46, 185, " + backButtonHoverTime / 100 + ")";
+
+  document.getElementById("overlay-back-button").style.background = toSet;
 }
 
 function getAvgXAxis() {
@@ -84,6 +95,7 @@ function getAvgYAxis() {
 }
 
 var clickButtonHoverTime = 0;
+var backButtonHoverTime = 0;
 webgazer.setGazeListener(function(data, elapsedTime) {
   if (data == null) {
     return;
@@ -131,12 +143,12 @@ webgazer.setGazeListener(function(data, elapsedTime) {
   } else if (avgYAxis > 650 && avgYAxis < 1000) {
     scrollDown();
     resetHoverTime();
-  } else if (
+  } else if ( // THIS IS THE IF CASE FOR THE CLICK BUTTON
     avgYAxis > 150 &&
     avgYAxis < 650 &&
     (avgXAxis > 1150 && avgXAxis < 1400)
   ) {
-    incrementHoverTime(); // If we get here the user might be trying to press the button, so let's increment a var to keep track of how long they have looked here
+    incrementClickButtonHoverTime(); // If we get here the user might be trying to press the button, so let's increment a var to keep track of how long they have looked here
 
     if (clickButtonHoverTime >= 100) {
       // If they have consistently looked here, then press the button
@@ -147,7 +159,28 @@ webgazer.setGazeListener(function(data, elapsedTime) {
     } else {
       console.log("Haven't hovered long enough.", clickButtonHoverTime);
     }
-  } else {
+  } else if ( // THIS IS THE IF CASE FOR THE BACK BUTTON
+    avgYAxis > 150 &&
+    avgYAxis < 650 &&
+    (avgXAxis > 0 && avgXAxis < 400)
+  ) {
+    incrementBackButtonHoverTime(); // If we get here the user might be trying to press the button, so let's increment a var to keep track of how long they have looked here
+
+    if (backButtonHoverTime >= 100) {
+      // If they have consistently looked here, then press the button
+      console.log("BUTTON PRESS!", clickButtonHoverTime);
+
+      // TODO: Make it go back
+      // chrome.tabs.goBack();
+      // chrome.tabs.executeScript(null,{"code": "window.history.back()"});
+
+      resetHoverTime();
+    } else {
+      console.log("Haven't hovered long enough.", clickButtonHoverTime);
+    }
+  }
+
+  else {
     resetHoverTime();
   }
 

@@ -22,11 +22,11 @@
   // "persistent": false
   //  },
 
-  //"content_scripts": [{
-  //"js": ["js/background.js"],
+  "content_scripts": [{
+  "js": ["js/start.js"],
   //"css": ["styles/styles.css"],
   //"matches": ["<all_urls>"]
-  //}],
+  }],
 
   //  "browser_action": {},
 
