@@ -19,7 +19,7 @@ myDiv.style.display = "table";
 
 myP.style.display = "table-cell";
 myP.style.verticalAlign = "middle";
-myP.innerText = "hover me to click";
+myP.innerText = "Hover me to click";
 
 
 document.body.appendChild(myDiv);
