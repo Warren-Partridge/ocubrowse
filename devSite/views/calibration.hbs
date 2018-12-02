@@ -99,82 +99,97 @@ $( document ).ready(function() {
       }
 
     });
+$('#topButton').trigger('click');
+// $('#botButton').css("display", "none");
+// $('#rightBut').css("display", "none");
+// $('#topButton').css("display", "none");
+// $('#placeHolderAF').css("display", "none");
+//
+//   setTimeout(function(){
+//     $('#topButton').css("display", "block");
+//
+//     for(a = 0; a < 5; a++){
+//       $('#topButton').trigger('click');
+//     }
+//
+//   $("#topButton").css("display", "none");
+//   $('#botButton').css("display", "block");
+//   for(b = 0; b < 10; b++){
+//       $('#botButton').trigger('click');
+//   }
+//
+//   $('#botButton').css("display", "none");
+//   // $('#rightBut').css("display", "block");
+//   //   for(c = 0; c < 10; b++){
+//   //     $('#rightBut').trigger('click');
+//   //   }
+//   //
+//   //
+//   //
+//   //   $('#rightBut').css("display", "none");
+//   //   $('#placeHolderAF').css("display", "block");
+//   //   for (var d = 0; d < 10; d++) {
+//   //     $('#placeHolderAF').trigger('click');
+//   //   }
+//   //
+//   //
+//   //   $("#placeHolderAF").css("display", "none");
+//
+//     $('#mainP').text('DONE');
+//
+//   },5000);
+
+  $("#placeHolderAF").click(function(){
+    //webgazer.end();
+  });
+
 });
 </script>
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
-<H1>This is a Header</H1>
+<style>
+#wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-<H2>ONE HEADER</H2>
-
-Send me mail at <a href="mailto:support@yourcompany.com">
-
-support@yourcompany.com</a>.
-
-<P> This is a new paragraph!
-
-<P> <B>This is a new paragraph!</B>
-
-<BR> <B><I>This is a new sentence without a paragraph break, in bold italics.</I></B>
-
-<HR>
-  <H1>This is a Header</H1>
-
-<H2>TWO HEADER</H2>
-
-Send me mail at <a href="mailto:support@yourcompany.com">
-
-support@yourcompany.com</a>.
-
-<P> This is a new paragraph!
-
-<P> <B>This is a new paragraph!</B>
-
-<BR> <B><I>This is a new sentence without a paragraph break, in bold italics.</I></B>
-
-<HR>
-  <H1>This is a Header</H1>
-
-<H2>THREE HEADER</H2>
-
-Send me mail at <a href="mailto:support@yourcompany.com">
-
-support@yourcompany.com</a>.
-
-<P> This is a new paragraph!
-
-<P> <B>This is a new paragraph!</B>
-
-<BR> <B><I>This is a new sentence without a paragraph break, in bold italics.</I></B>
-
-<HR>
-  <H1>This is a Header</H1>
-
-<H2>FOUR HEADER</H2>
-
-Send me mail at <a href="mailto:support@yourcompany.com">
-
-support@yourcompany.com</a>.
-
-<P> This is a new paragraph!
-
-<P> <B>This is a new paragraph!</B>
-
-<BR> <B><I>This is a new sentence without a paragraph break, in bold italics.</I></B>
-
-<HR>
-  <H1>This is a Header</H1>
-
-<H2>FIVE HEADER</H2>
-
-Send me mail at <a href="mailto:support@yourcompany.com">
-
-support@yourcompany.com</a>.
-
-<P> This is a new paragraph!
-
-<P> <B>This is a new paragraph!</B>
-
-<BR> <B><I>This is a new sentence without a paragraph break, in bold italics.</I></B>
-
-<HR>
+button {
+  height: 20px;
+  width: 100px;
+}
+</style>
+<div>
+<div id="wrapper">
+  <input type="button" id="topButton" value="LOOK ABOVE ME (No need to click me!)" style="float: right;">
+</div>
+<br>
+<br>
+<h1 style="text-align: center">{{title}}</h1>
+<p style="text-align: center">Welcome to {{title}}</p>
+<br>
+<br>
+<p style="text-align: center" id="mainP">The calibration will begin in 5 seconds</p>
+<br>
+<div id="wrapper">
+  <input type="button" id="placeHolderAF" value="LOOK AT ME" style="float: right;">
+</div>
+<input type="button" id="rightBut" value="LOOK AT ME" style="float: right;">
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div id="wrapper">
+  <input type="button" id="botButton" value="LOOK BELOW ME (No need to click me!)" style="float: right;">
+</div>
+</div>
