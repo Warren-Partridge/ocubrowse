@@ -1,0 +1,46 @@
+#wrapper {
+  background-image: url("/images/background_img.jpg");
+  background-repeat: no-repeat;
+  height:100vh;
+  background-size: cover;
+  font-family: "Roboto", sans-serif;
+}
+
+#mainTitle {
+  display: flex;
+  align-items: center;
+  min-height: 100%;
+  text-align: center;
+}
+
+#mainNav {
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 10px 0 10px 0;
+  font-family: "Roboto", sans-serif;
+}
+
+a {
+  color: #f6f6f6;
+  /* text-decoration: underline; */
+}
+a:hover {
+  color: lightgray;
+}
+
+body {
+  padding: 0 0 0 0;
+}
+
+#title {
+  font-size: 5em;
+  font-weight: 700;
+  color: #e0e0e0;
+}
+
+#description {
+  font-family: "Open Sans", sans-serif;
+}
+
+#buttons {
+
+}
