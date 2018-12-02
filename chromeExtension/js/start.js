@@ -26,13 +26,13 @@ Queue.prototype.size = function() {
 
 function scrollDown() {
   console.log("Scrolling down", yAxis);
-  window.scrollBy(0, 7); // first val is x value you want to change by; second val is y value
+  window.scrollBy(0, 10); // first val is x value you want to change by; second val is y value
   resetQ();
 }
 
 function scrollUp() {
   console.log("Scrolling up ", yAxis);
-  window.scrollBy(0, -7);
+  window.scrollBy(0, -10);
   resetQ();
 }
 
@@ -45,6 +45,22 @@ function resetQ() {
 
 function resetHoverTime() {
   clickButtonHoverTime = 0;
+  var toSet = "rgba(47, 208, 89, 0)";
+
+  document
+    .getElementById("overlay-click-button")
+    .style.backgroundColor = toSet;
+}
+
+function incrementHoverTime() {
+  clickButtonHoverTime++;
+
+  var toSet = "rgba(47, 208, 89, " + clickButtonHoverTime/100 + ")";
+
+  document
+    .getElementById("overlay-click-button")
+    .style.background = toSet;
+
 }
 
 function getAvgXAxis() {
@@ -67,9 +83,7 @@ function getAvgYAxis() {
 }
 
 
-
 var clickButtonHoverTime = 0;
-
 webgazer.setGazeListener(function(data, elapsedTime) {
   if (data == null) {
     return;
@@ -81,19 +95,18 @@ webgazer.setGazeListener(function(data, elapsedTime) {
   recentQ.remove();
   recentQ.add([xAxis, yAxis]);
 
-
   var avgXAxis = getAvgXAxis();
   var avgYAxis = getAvgYAxis();
 
   console.log("current avgxaxis is ", avgXAxis);
   console.log("current avgyaxis is ", avgYAxis);
 
-  if (avgYAxis > 0 && avgYAxis < 150) { scrollUp(); resetHoverTime(); }
+  if (avgYAxis > -100 && avgYAxis < 150) { scrollUp(); resetHoverTime(); }
 
-  else if (avgYAxis > 650 && avgYAxis < 800) { scrollDown(); resetHoverTime(); }
+  else if (avgYAxis > 650 && avgYAxis < 1000) { scrollDown(); resetHoverTime(); }
 
   else if ((avgYAxis > 150 && avgYAxis < 650) && (avgXAxis > 1150 && avgXAxis < 1400)) {
-    clickButtonHoverTime++; // If we get here the user might be trying to press the button, so let's increment a var to keep track of how long they have looked here
+    incrementHoverTime(); // If we get here the user might be trying to press the button, so let's increment a var to keep track of how long they have looked here
 
     if (clickButtonHoverTime >= 100) { // If they have consistently looked here, then press the button
       console.log("BUTTON PRESS!", clickButtonHoverTime);
@@ -107,7 +120,6 @@ webgazer.setGazeListener(function(data, elapsedTime) {
   else {
     resetHoverTime();
   }
-
 
 });
 
