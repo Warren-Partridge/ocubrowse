@@ -1,3 +1,13 @@
+function isScrolledIntoView(elem) {
+  var docViewTop = $(window).scrollTop();
+  var docViewBottom = docViewTop + $(window).height();
+
+  var elemTop = $(elem).offset().top;
+  var elemBottom = elemTop + $(elem).height();
+
+  return elemBottom <= docViewBottom && elemTop >= docViewTop;
+}
+
 function Queue() {
   this.data = [];
 }
@@ -43,13 +53,13 @@ function avgVal() {
 }
 
 function scrollDown() {
-  console.log("Scrolling down", yAxis);
+  //console.log("Scrolling down", yAxis);
   window.scrollBy(0, 7); // first val is x value you want to change by; second val is y value
   resetQ();
 }
 
 function scrollUp() {
-  console.log("Scrolling up ", yAxis);
+  //console.log("Scrolling up ", yAxis);
   window.scrollBy(0, -7);
   resetQ();
 }
@@ -67,7 +77,7 @@ function getAvgYAxis() {
     total += recentQ.data[i];
   }
 
-  return total / recentQ.size()
+  return total / recentQ.size();
 }
 
 webgazer.setGazeListener(function(data, elapsedTime) {
@@ -82,12 +92,46 @@ webgazer.setGazeListener(function(data, elapsedTime) {
 
   var avgYAxis = getAvgYAxis();
 
-  console.log("current avgyaxis is ", avgYAxis);
+  //console.log("current avgyaxis is ", avgYAxis);
 
-  if (avgYAxis > 0 && avgYAxis < 150) { scrollUp(); }
+  if (avgYAxis > 0 && avgYAxis < 150) {
+    scrollUp();
+  } else if (avgYAxis > 650 && avgYAxis < 800) {
+    scrollDown();
+  }
 
-  else if (avgYAxis > 650 && avgYAxis < 800) { scrollDown(); }
+  var midDiff = 100000000;
+  var currentLinkToBeClicked = "";
+  var windowHeightOverTwo = $(window).height() / 2;
+  var middleHeight = $(window).scrollTop() + windowHeightOverTwo;
+  var links = document.getElementsByTagName("a");
 
+  var tempArr = [];
+  for (var x = 0; x < links.length; x++) {
+    //HMMMMMMMMM
+    var position = $(links[x]).offset();
+    var linkHeight = position.top;
+    tempArr.push(linkHeight);
+  }
+  for (var i = 0, l = links.length; i < l; i++) {
+    if (isScrolledIntoView(links[i])) {
+      //HMMMMMMMMM
+      var position = $(links[i]).offset();
+      var linkHeight = position.top;
+      if (Math.abs(middleHeight - linkHeight) < midDiff) {
+        midDiff = Math.abs(middleHeight - linkHeight);
+        currentLinkToBeClicked = links[i];
+      }
+    }
+  }
+
+  for (var i = 0, l = links.length; i < l; i++) {
+    if (links[i] == currentLinkToBeClicked) {
+      links[i].style.backgroundColor = "#FFFF00";
+    } else {
+      links[i].style.backgroundColor = "";
+    }
+  }
   // var upFlag = true;
   // var downFlag = true;
   //
