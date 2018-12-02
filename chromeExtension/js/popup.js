@@ -6,6 +6,9 @@ function startWebgazer() {
     file: "js/webgazer.js"
   });
   chrome.tabs.executeScript({
+    file: "js/makeOverlay.js"
+  });
+  chrome.tabs.executeScript({
     file: "js/start.js"
   });
 }
