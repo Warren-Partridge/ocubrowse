@@ -28,3 +28,54 @@
 //     sendResponse({farewell: "goodbye"});
 //     chrome.tabs.goBack();
 //   });
+
+//
+// window.onload=function(){
+//   console.log("page load!");
+// }
+
+
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    console.log('The request has been received from the content script.');
+    chrome.tabs.executeScript({
+      file: "js/jquery.min.js"
+    });
+    chrome.tabs.executeScript({
+      file: "js/webgazer.js"
+    });
+    chrome.tabs.executeScript({
+      file: "js/makeBackButtonOverlay.js"
+    });
+    chrome.tabs.executeScript({
+      file: "js/makeClickButtonOverlay.js"
+    });
+    chrome.tabs.executeScript({
+      file: "js/start.js"
+    });
+});
+
+
+// chrome.tabs.onUpdated.addListener( function (tabId, changeInfo, tab) {
+//   if (changeInfo.status == 'complete') {
+//
+//   }
+// });
+
+//
+// window.onload=function(){
+//   chrome.tabs.executeScript({
+//     file: "js/jquery.min.js"
+//   });
+//   chrome.tabs.executeScript({
+//     file: "js/webgazer.js"
+//   });
+//   chrome.tabs.executeScript({
+//     file: "js/makeBackButtonOverlay.js"
+//   });
+//   chrome.tabs.executeScript({
+//     file: "js/makeClickButtonOverlay.js"
+//   });
+//   chrome.tabs.executeScript({
+//     file: "js/start.js"
+//   });
+// };
