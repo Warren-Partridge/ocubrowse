@@ -62,7 +62,7 @@ function resetHoverTime() {
 function incrementClickButtonHoverTime() {
   clickButtonHoverTime++;
 
-  var toSet = "rgba(47, 208, 89, " + clickButtonHoverTime / 100 + ")";
+  var toSet = "rgba(47, 208, 89, " + clickButtonHoverTime / 50 + ")";
 
   document.getElementById("overlay-click-button").style.background = toSet;
 }
@@ -70,7 +70,7 @@ function incrementClickButtonHoverTime() {
 function incrementBackButtonHoverTime() {
   backButtonHoverTime++;
 
-  var toSet = "rgba(171, 46, 185, " + backButtonHoverTime / 100 + ")";
+  var toSet = "rgba(171, 46, 185, " + backButtonHoverTime / 50 + ")";
 
   document.getElementById("overlay-back-button").style.background = toSet;
 }
@@ -150,7 +150,7 @@ webgazer.setGazeListener(function(data, elapsedTime) {
   ) {
     incrementClickButtonHoverTime(); // If we get here the user might be trying to press the button, so let's increment a var to keep track of how long they have looked here
 
-    if (clickButtonHoverTime >= 100) {
+    if (clickButtonHoverTime >= 50) {
       // If they have consistently looked here, then press the button
       console.log("BUTTON PRESS!", clickButtonHoverTime);
 
@@ -166,7 +166,7 @@ webgazer.setGazeListener(function(data, elapsedTime) {
   ) {
     incrementBackButtonHoverTime(); // If we get here the user might be trying to press the button, so let's increment a var to keep track of how long they have looked here
 
-    if (backButtonHoverTime >= 100) {
+    if (backButtonHoverTime >= 50) {
       // If they have consistently looked here, then press the button
       console.log("BUTTON PRESS!", backButtonHoverTime);
 
