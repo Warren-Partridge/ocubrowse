@@ -154,6 +154,8 @@ webgazer.setGazeListener(function(data, elapsedTime) {
       // If they have consistently looked here, then press the button
       console.log("BUTTON PRESS!", clickButtonHoverTime);
 
+      webgazer.end();
+
       window.open(currentLinkToBeClicked.href, "_self");
       resetHoverTime();
     } else {

@@ -9638,10 +9638,45 @@ var mosseFilterResponses = function() {
      * @param {Array.<Object>} data - The data to set
      */
     webgazer.reg.RidgeReg.prototype.setData = function(data) {
+        console.log("hello from ridgereg", data);
         for (var i = 0; i < data.length; i++) {
+            //console.log("hello from kludge patch", data[i].eyes.left.patch.data);
+            console.log("hello from kludge patch", Object.keys(data[i].eyes.left.patch.data).length);
+
+            var patchSize = Object.keys(data[i].eyes.left.patch.data).length;
+            var test = new Uint8ClampedArray(Object.keys(data[i].eyes.left.patch.data).length); console.log(test);
+            for (var j=0; j<patchSize; j++) {
+              test[j] = data[i].eyes.left.patch.data[j]
+            }
+
+            console.log(test);
             //TODO this is a kludge, needs to be fixed
-            data[i].eyes.left.patch = new ImageData(new Uint8ClampedArray(data[i].eyes.left.patch), data[i].eyes.left.width, data[i].eyes.left.height);
-            data[i].eyes.right.patch = new ImageData(new Uint8ClampedArray(data[i].eyes.right.patch), data[i].eyes.right.width, data[i].eyes.right.height);
+
+            // TODO from warren: I have the length of the object, now just need to make a clamped array of that size and put stuff in
+
+            // var test = new Uint8ClampedArray(data[i].eyes.left.patch); console.log(test);
+            var width = data[i].eyes.left.width; console.log(width);
+            var height = data[i].eyes.left.height; console.log(height);
+            var testID = new ImageData(test, width, height);
+            data[i].eyes.left.patch = testID;
+
+
+
+
+            // Now do the same for the right eyes
+            patchSize = Object.keys(data[i].eyes.right.patch.data).length;
+            test = new Uint8ClampedArray(Object.keys(data[i].eyes.right.patch.data).length); console.log(test);
+            for (var k=0; k<patchSize; k++) {
+              test[k] = data[i].eyes.left.patch.data[k];
+            }
+            width = data[i].eyes.right.width;
+            height = data[i].eyes.right.height;
+            testID = new ImageData(test, width, height);
+
+            // data[i].eyes.left.patch = new ImageData(new Uint8ClampedArray(data[i].eyes.left.patch), data[i].eyes.left.width, data[i].eyes.left.height);
+            // data[i].eyes.right.patch = new ImageData(new Uint8ClampedArray(data[i].eyes.right.patch), data[i].eyes.right.width, data[i].eyes.right.height);
+            data[i].eyes.right.patch = testID;
+
             this.addData(data[i].eyes, data[i].screenPos, data[i].type);
         }
     };
@@ -10838,7 +10873,13 @@ function store_points(x, y, k) {
      * Loads the global data and passes it to the regression model
      */
     function loadGlobalData() {
+        console.log("loadglobaldata windowlocalstorage", window.localStorage.getItem(localstorageLabel));
         var storage = JSON.parse(window.localStorage.getItem(localstorageLabel)) || defaults;
+        console.log(storage);
+        // console.log(localstorageLabel);
+        // var storage = JSON.parse(chrome.storage.local.get(localstorageLabel, function(){
+        //   console.log("loadGlobalData chrome storage getted")
+        // } )) || defaults;
         settings = storage.settings;
         data = storage.data;
         for (var reg in regs) {
@@ -10855,6 +10896,7 @@ function store_points(x, y, k) {
             'data': regs[0].getData() || data
         };
         window.localStorage.setItem(localstorageLabel, JSON.stringify(storage));
+        // chrome.storage.local.set(localstorageLabel, JSON.stringify(storage));
         //TODO data should probably be stored in webgazer object instead of each regression model
         //     -> requires duplication of data, but is likely easier on regression model implementors
     }
@@ -10864,6 +10906,7 @@ function store_points(x, y, k) {
      */
     function clearData() {
         window.localStorage.set(localstorageLabel, undefined);
+        // chrome.storage.local.set(localstorageLabel, undefined);
         for (var reg in regs) {
             regs[reg].setData([]);
         }
