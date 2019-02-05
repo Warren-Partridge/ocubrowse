@@ -10878,6 +10878,22 @@ function store_points(x, y, k) {
         var storage = JSON.parse(window.sessionStorage.getItem(localstorageLabel)) || defaults;
         // console.log(storage);
 
+        console.log("about to request mockdb");
+        // const url = "http://localhost:3000/mockdb";
+        // const fSettings = {
+        //   headers: { "Content-Type": "application/json" }
+        // }
+        // fetch(url, fSettings).then(myJson=>{console.log("mockdb data:", JSON.stringify(myJson))}).then(res=>{console.log("mockres:", res)});
+
+        // Doing this because fetch doesn't work and I want minimal dependencies
+        const Http = new XMLHttpRequest();
+        const url='http://localhost:3000/mockdb';
+        Http.open("GET", url);
+        Http.send();
+        Http.onreadystatechange=(e)=>{
+          console.log(Http.responseText)
+        }
+
         settings = storage.settings;
         data = storage.data;
         for (var reg in regs) {
@@ -10904,6 +10920,8 @@ function store_points(x, y, k) {
             'settings': settings,
             'data': regs[0].getData() || data
         };
+
+
         // window.localStorage.setItem(localstorageLabel, JSON.stringify(storage));
         window.sessionStorage.setItem(localstorageLabel, JSON.stringify(storage));
         // chrome.storage.local.set(localstorageLabel, JSON.stringify(storage));
