@@ -10875,7 +10875,7 @@ function store_points(x, y, k) {
     function loadGlobalData() {
         console.log("loadglobaldata windowsessionstorage", window.sessionStorage.getItem(localstorageLabel));
         // var storage = JSON.parse(window.localStorage.getItem(localstorageLabel)) || defaults;
-        var storage = JSON.parse(window.sessionStorage.getItem(localstorageLabel)) || defaults;
+        // var storage = JSON.parse(window.sessionStorage.getItem(localstorageLabel)) || defaults; was using
         // console.log(storage);
 
         console.log("about to request mockdb");
@@ -10891,14 +10891,18 @@ function store_points(x, y, k) {
         Http.open("GET", url);
         Http.send();
         Http.onreadystatechange=(e)=>{
-          console.log(Http.responseText)
+          var storage = JSON.parse(Http.responseText);
+          console.log("heard from mockdb:", storage);
+          console.log("now attempting to load mockdb data into regression model.");
+          settings = storage.settings; console.log(settings);
+          data = storage.data; console.log(data);
+          for (var reg in regs) {
+            regs[reg].setData(storage.data);
+          }
+          console.log("if you are reading this then it may have worked");
         }
 
-        settings = storage.settings;
-        data = storage.data;
-        for (var reg in regs) {
-            regs[reg].setData(storage.data);
-        }
+
 
 
         // var test = JSON.parse(chrome.storage.local.get(localstorageLabel, function(storage){
@@ -10924,7 +10928,7 @@ function store_points(x, y, k) {
 
         var http = new XMLHttpRequest();
         var url = 'http://localhost:3000/mockdb';
-        var params = 'eyeData=test';
+        var params = 'eyeData=' + JSON.stringify(storage);
         http.open('POST', url, true);
 
         //Send the proper header information along with the request

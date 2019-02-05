@@ -18,18 +18,17 @@ router.get('/', function(req, res, next) {
 /* POST mock DB data */
 router.post('/', function(req, res, next) {
 
-  // TODO
   console.log("Got something:", req);
 
-  fs.writeFile("./db/mockdata", "Howdy partner!", function(err) {
+  fs.writeFile("./db/mockdata", req.body.eyeData, function(err) {
     if(err) {
       return console.log(err);
     }
 
-    console.log("saved something");
+    console.log("Saved req.body.eyeData to mock data.");
   });
 
-  res.send('mock db');
+  res.send('you have reached the mock db');
 });
 
 module.exports = router;
