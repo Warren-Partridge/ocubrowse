@@ -10873,18 +10873,27 @@ function store_points(x, y, k) {
      * Loads the global data and passes it to the regression model
      */
     function loadGlobalData() {
-        console.log("loadglobaldata windowlocalstorage", window.localStorage.getItem(localstorageLabel));
-        var storage = JSON.parse(window.localStorage.getItem(localstorageLabel)) || defaults;
-        console.log(storage);
-        // console.log(localstorageLabel);
-        // var storage = JSON.parse(chrome.storage.local.get(localstorageLabel, function(){
-        //   console.log("loadGlobalData chrome storage getted")
-        // } )) || defaults;
+        console.log("loadglobaldata windowsessionstorage", window.sessionStorage.getItem(localstorageLabel));
+        // var storage = JSON.parse(window.localStorage.getItem(localstorageLabel)) || defaults;
+        var storage = JSON.parse(window.sessionStorage.getItem(localstorageLabel)) || defaults;
+        // console.log(storage);
+
         settings = storage.settings;
         data = storage.data;
         for (var reg in regs) {
             regs[reg].setData(storage.data);
         }
+
+
+        // var test = JSON.parse(chrome.storage.local.get(localstorageLabel, function(storage){
+        //   console.log("loadGlobalData chrome storage getted")
+        //   settings = storage.settings;
+        //   data = storage.data;
+        //   for (var reg in regs) {
+        //       regs[reg].setData(storage.data);
+        //   }
+        // } )) || defaults;
+
     }
 
    /**
@@ -10895,7 +10904,8 @@ function store_points(x, y, k) {
             'settings': settings,
             'data': regs[0].getData() || data
         };
-        window.localStorage.setItem(localstorageLabel, JSON.stringify(storage));
+        // window.localStorage.setItem(localstorageLabel, JSON.stringify(storage));
+        window.sessionStorage.setItem(localstorageLabel, JSON.stringify(storage));
         // chrome.storage.local.set(localstorageLabel, JSON.stringify(storage));
         //TODO data should probably be stored in webgazer object instead of each regression model
         //     -> requires duplication of data, but is likely easier on regression model implementors
@@ -10905,7 +10915,8 @@ function store_points(x, y, k) {
      * Clears data from model and global storage
      */
     function clearData() {
-        window.localStorage.set(localstorageLabel, undefined);
+        // window.localStorage.set(localstorageLabel, undefined);
+        window.sessionStorage.set(localstorageLabel, undefined);
         // chrome.storage.local.set(localstorageLabel, undefined);
         for (var reg in regs) {
             regs[reg].setData([]);

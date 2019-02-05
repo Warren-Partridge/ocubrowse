@@ -86,7 +86,7 @@ function getAvgXAxis() {
 
 function getAvgYAxis() {
   var total = 0;
-  console.log(recentQ.data[i]);
+  // console.log(recentQ.data[i]);
   for (i = 0; i < recentQ.size(); i++) {
     total += recentQ.data[i][1];
   }
