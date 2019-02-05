@@ -10922,8 +10922,22 @@ function store_points(x, y, k) {
         };
 
 
+        var http = new XMLHttpRequest();
+        var url = 'http://localhost:3000/mockdb';
+        var params = 'eyeData=test';
+        http.open('POST', url, true);
+
+        //Send the proper header information along with the request
+        http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+        http.onreadystatechange=(e)=>{
+           console.log(http.responseText)
+         }
+        http.send(params);
+
+
         // window.localStorage.setItem(localstorageLabel, JSON.stringify(storage));
-        window.sessionStorage.setItem(localstorageLabel, JSON.stringify(storage));
+        // window.sessionStorage.setItem(localstorageLabel, JSON.stringify(storage)); using
         // chrome.storage.local.set(localstorageLabel, JSON.stringify(storage));
         //TODO data should probably be stored in webgazer object instead of each regression model
         //     -> requires duplication of data, but is likely easier on regression model implementors
