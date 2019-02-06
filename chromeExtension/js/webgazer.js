@@ -10873,7 +10873,7 @@ function store_points(x, y, k) {
      * Loads the global data and passes it to the regression model
      */
     function loadGlobalData() {
-        var fullTestMode = true;
+        var fullTestMode = false;
 
         if (fullTestMode) {
           console.log("Full test mode is on. Running clearData() to remove regression data from mock DB and localstorage.");
@@ -11114,7 +11114,7 @@ function store_points(x, y, k) {
             alert("WebGazer works only over https. If you are doing local development you need to run a local server.");
         }
 
-        loadGlobalData();
+        // loadGlobalData(); moved below so that the webcam can load before downloading regression data
 
         onFail = onFail || function() {console.log('No stream')};
 
@@ -11141,6 +11141,8 @@ function store_points(x, y, k) {
           videoElement = null;
           videoStream = null;
         });
+
+        loadGlobalData();
 
         return webgazer;
     };
