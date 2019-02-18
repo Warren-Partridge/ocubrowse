@@ -9640,8 +9640,9 @@ var mosseFilterResponses = function() {
     webgazer.reg.RidgeReg.prototype.setData = function(data) {
         console.log("hello from ridgereg", data);
         for (var i = 0; i < data.length; i++) {
+            console.log("hello before ridgereg kudge", data[i]);
             //console.log("hello from kludge patch", data[i].eyes.left.patch.data);
-            console.log("hello from kludge patch", Object.keys(data[i].eyes.left.patch.data).length);
+            console.log("hello from ridgereg kludge patch", Object.keys(data[i].eyes.left.patch.data).length);
 
             var patchSize = Object.keys(data[i].eyes.left.patch.data).length;
             var test = new Uint8ClampedArray(Object.keys(data[i].eyes.left.patch.data).length); console.log(test);
@@ -9649,10 +9650,8 @@ var mosseFilterResponses = function() {
               test[j] = data[i].eyes.left.patch.data[j]
             }
 
-            console.log(test);
+            // console.log(test);
             //TODO this is a kludge, needs to be fixed
-
-            // TODO from warren: I have the length of the object, now just need to make a clamped array of that size and put stuff in
 
             // var test = new Uint8ClampedArray(data[i].eyes.left.patch); console.log(test);
             var width = data[i].eyes.left.width; console.log(width);
@@ -9936,12 +9935,54 @@ var mosseFilterResponses = function() {
      * @param {Array.<Object>} data - The data to set
      */
     webgazer.reg.RidgeWeightedReg.prototype.setData = function(data) {
+
+        console.log("hello from ridgeweightedreg", data);
         for (var i = 0; i < data.length; i++) {
+            console.log("hello before ridgeweightedreg kudge", data[i]);
+            //console.log("hello from kludge patch", data[i].eyes.left.patch.data);
+            console.log("hello from ridgeweightedreg kludge patch", Object.keys(data[i].eyes.left.patch.data).length);
+
+            var patchSize = Object.keys(data[i].eyes.left.patch.data).length;
+            var test = new Uint8ClampedArray(Object.keys(data[i].eyes.left.patch.data).length); console.log(test);
+            for (var j=0; j<patchSize; j++) {
+              test[j] = data[i].eyes.left.patch.data[j]
+            }
+
+            // console.log(test);
             //TODO this is a kludge, needs to be fixed
-            data[i].eyes.left.patch = new ImageData(new Uint8ClampedArray(data[i].eyes.left.patch), data[i].eyes.left.width, data[i].eyes.left.height);
-            data[i].eyes.right.patch = new ImageData(new Uint8ClampedArray(data[i].eyes.right.patch), data[i].eyes.right.width, data[i].eyes.right.height);
+
+            // var test = new Uint8ClampedArray(data[i].eyes.left.patch); console.log(test);
+            var width = data[i].eyes.left.width; console.log(width);
+            var height = data[i].eyes.left.height; console.log(height);
+            var testID = new ImageData(test, width, height);
+            data[i].eyes.left.patch = testID;
+
+
+
+
+            // Now do the same for the right eyes
+            patchSize = Object.keys(data[i].eyes.right.patch.data).length;
+            test = new Uint8ClampedArray(Object.keys(data[i].eyes.right.patch.data).length); console.log(test);
+            for (var k=0; k<patchSize; k++) {
+              test[k] = data[i].eyes.left.patch.data[k];
+            }
+            width = data[i].eyes.right.width;
+            height = data[i].eyes.right.height;
+            testID = new ImageData(test, width, height);
+
+            // data[i].eyes.left.patch = new ImageData(new Uint8ClampedArray(data[i].eyes.left.patch), data[i].eyes.left.width, data[i].eyes.left.height);
+            // data[i].eyes.right.patch = new ImageData(new Uint8ClampedArray(data[i].eyes.right.patch), data[i].eyes.right.width, data[i].eyes.right.height);
+            data[i].eyes.right.patch = testID;
+
             this.addData(data[i].eyes, data[i].screenPos, data[i].type);
         }
+
+        // for (var i = 0; i < data.length; i++) {
+        //     //TODO this is a kludge, needs to be fixed
+        //     data[i].eyes.left.patch = new ImageData(new Uint8ClampedArray(data[i].eyes.left.patch), data[i].eyes.left.width, data[i].eyes.left.height);
+        //     data[i].eyes.right.patch = new ImageData(new Uint8ClampedArray(data[i].eyes.right.patch), data[i].eyes.right.width, data[i].eyes.right.height);
+        //     this.addData(data[i].eyes, data[i].screenPos, data[i].type);
+        // }
     };
 
     /**
@@ -10080,12 +10121,52 @@ var mosseFilterResponses = function() {
      * @param {Array.<Object>} data - The data to set
      */
     webgazer.reg.RidgeRegThreaded.prototype.setData = function(data) {
-        for (var i = 0; i < data.length; i++) {
+      for (var i = 0; i < data.length; i++) {
+            console.log("hello before ridgeregthreaded kudge", data[i]);
+            //console.log("hello from kludge patch", data[i].eyes.left.patch.data);
+            console.log("hello from ridgeregthreaded kludge patch", Object.keys(data[i].eyes.left.patch.data).length);
+
+            var patchSize = Object.keys(data[i].eyes.left.patch.data).length;
+            var test = new Uint8ClampedArray(Object.keys(data[i].eyes.left.patch.data).length); console.log(test);
+            for (var j=0; j<patchSize; j++) {
+              test[j] = data[i].eyes.left.patch.data[j]
+            }
+
+            // console.log(test);
             //TODO this is a kludge, needs to be fixed
-            data[i].eyes.left.patch = new ImageData(new Uint8ClampedArray(data[i].eyes.left.patch), data[i].eyes.left.width, data[i].eyes.left.height);
-            data[i].eyes.right.patch = new ImageData(new Uint8ClampedArray(data[i].eyes.right.patch), data[i].eyes.right.width, data[i].eyes.right.height);
+
+            // var test = new Uint8ClampedArray(data[i].eyes.left.patch); console.log(test);
+            var width = data[i].eyes.left.width; console.log(width);
+            var height = data[i].eyes.left.height; console.log(height);
+            var testID = new ImageData(test, width, height);
+            data[i].eyes.left.patch = testID;
+
+
+
+
+            // Now do the same for the right eyes
+            patchSize = Object.keys(data[i].eyes.right.patch.data).length;
+            test = new Uint8ClampedArray(Object.keys(data[i].eyes.right.patch.data).length); console.log(test);
+            for (var k=0; k<patchSize; k++) {
+              test[k] = data[i].eyes.left.patch.data[k];
+            }
+            width = data[i].eyes.right.width;
+            height = data[i].eyes.right.height;
+            testID = new ImageData(test, width, height);
+
+            // data[i].eyes.left.patch = new ImageData(new Uint8ClampedArray(data[i].eyes.left.patch), data[i].eyes.left.width, data[i].eyes.left.height);
+            // data[i].eyes.right.patch = new ImageData(new Uint8ClampedArray(data[i].eyes.right.patch), data[i].eyes.right.width, data[i].eyes.right.height);
+            data[i].eyes.right.patch = testID;
+
             this.addData(data[i].eyes, data[i].screenPos, data[i].type);
         }
+
+        // for (var i = 0; i < data.length; i++) {
+        //     //TODO this is a kludge, needs to be fixed
+        //     data[i].eyes.left.patch = new ImageData(new Uint8ClampedArray(data[i].eyes.left.patch), data[i].eyes.left.width, data[i].eyes.left.height);
+        //     data[i].eyes.right.patch = new ImageData(new Uint8ClampedArray(data[i].eyes.right.patch), data[i].eyes.right.width, data[i].eyes.right.height);
+        //     this.addData(data[i].eyes, data[i].screenPos, data[i].type);
+        // }
     };
 
     /**
@@ -10873,49 +10954,72 @@ function store_points(x, y, k) {
      * Loads the global data and passes it to the regression model
      */
     function loadGlobalData() {
-        var fullTestMode = false;
+        // var storage = JSON.parse(window.sessionStorage.getItem(localstorageLabel)) || defaults;
 
-        if (fullTestMode) {
-          console.log("Full test mode is on. Running clearData() to remove regression data from mock DB and localstorage.");
-          clearData();
-        }
+        chrome.storage.local.get(['webgazerGlobalData'], function(result) {
+          console.log("got result from storage.local", result.webgazerGlobalData);
+          if (result.webgazerGlobalData == null || result.webgazerGlobalData == {}) {
+            console.log("it's empty");
+            var emptyResult = defaults;
 
-        else {
-          console.log("Full test mode is off. Proceeding as usual.");
-
-          console.log("loadglobaldata windowsessionstorage", window.sessionStorage.getItem(localstorageLabel));
-          // var storage = JSON.parse(window.localStorage.getItem(localstorageLabel)) || defaults;
-          // var storage = JSON.parse(window.sessionStorage.getItem(localstorageLabel)) || defaults; was using
-          // console.log(storage);
-
-          console.log("about to request mockdb");
-          // const url = "http://localhost:3000/mockdb";
-          // const fSettings = {
-          //   headers: { "Content-Type": "application/json" }
-          // }
-          // fetch(url, fSettings).then(myJson=>{console.log("mockdb data:", JSON.stringify(myJson))}).then(res=>{console.log("mockres:", res)});
-
-          // Doing this because fetch doesn't work and I want minimal dependencies
-          const Http = new XMLHttpRequest();
-          const url = 'http://localhost:3000/mockdb';
-          Http.open("GET", url);
-          Http.send();
-          Http.onreadystatechange = (e) =>
-          {
-            var storage = JSON.parse(Http.responseText);
-            console.log("heard from mockdb:", storage);
-            console.log("now attempting to load mockdb data into regression model.");
-            settings = storage.settings;
-            console.log(settings);
-            data = storage.data;
-            console.log(data);
+            settings = emptyResult.webgazerGlobalData.settings;
+            data = emptyResult.webgazerGlobalData.data;
             for (var reg in regs) {
-              regs[reg].setData(storage.data);
+              regs[reg].setData(emptyResult.webgazerGlobalData.data);
             }
-            console.log("if you are reading this then it may have worked");
+          } else { // if local storage is not empty and there is data to load
+            settings = result.webgazerGlobalData.settings;
+            data = result.webgazerGlobalData.data;
+            for (var reg in regs) {
+              regs[reg].setData(result.webgazerGlobalData.data);
+            }
           }
 
-        }
+        });
+        // The below code came from when I was using the mock db to store data between pages
+        // var fullTestMode = false;
+        //
+        // if (fullTestMode) {
+        //   console.log("Full test mode is on. Running clearData() to remove regression data from mock DB and localstorage.");
+        //   clearData();
+        // }
+        //
+        // else {
+        //   console.log("Full test mode is off. Proceeding as usual.");
+        //
+        //   console.log("loadglobaldata windowsessionstorage", window.sessionStorage.getItem(localstorageLabel));
+        //   // var storage = JSON.parse(window.localStorage.getItem(localstorageLabel)) || defaults;
+        //   // var storage = JSON.parse(window.sessionStorage.getItem(localstorageLabel)) || defaults; was using
+        //   // console.log(storage);
+        //
+        //   console.log("about to request mockdb");
+        //   // const url = "http://localhost:3000/mockdb";
+        //   // const fSettings = {
+        //   //   headers: { "Content-Type": "application/json" }
+        //   // }
+        //   // fetch(url, fSettings).then(myJson=>{console.log("mockdb data:", JSON.stringify(myJson))}).then(res=>{console.log("mockres:", res)});
+        //
+        //   // Doing this because fetch doesn't work and I want minimal dependencies
+        //   const Http = new XMLHttpRequest();
+        //   const url = 'http://localhost:3000/mockdb';
+        //   Http.open("GET", url);
+        //   Http.send();
+        //   Http.onreadystatechange = (e) =>
+        //   {
+        //     var storage = JSON.parse(Http.responseText);
+        //     console.log("heard from mockdb:", storage);
+        //     console.log("now attempting to load mockdb data into regression model.");
+        //     settings = storage.settings;
+        //     console.log(settings);
+        //     data = storage.data;
+        //     console.log(data);
+        //     for (var reg in regs) {
+        //       regs[reg].setData(storage.data);
+        //     }
+        //     console.log("if you are reading this then it may have worked");
+        //   }
+        //
+        // }
 
     }
 
@@ -10928,19 +11032,26 @@ function store_points(x, y, k) {
             'data': regs[0].getData() || data
         };
 
-
-        var http = new XMLHttpRequest();
-        var url = 'http://localhost:3000/mockdb';
-        var params = 'eyeData=' + JSON.stringify(storage);
-        http.open('POST', url, true);
-
-        //Send the proper header information along with the request
-        http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-
-        http.onreadystatechange=(e)=>{
-           console.log(http.responseText)
-         }
-        http.send(params);
+       console.log("trying to set global data", storage);
+       chrome.storage.local.set({webgazerGlobalData: storage}, function () {
+         console.log("storage set!");
+         chrome.storage.local.get(['webgazerGlobalData'], function(result) {
+           console.log("checking result from storage.local", result);
+         });
+       });
+        // The below code came from when I was using the mock db to store data between pages
+        // var http = new XMLHttpRequest();
+        // var url = 'http://localhost:3000/mockdb';
+        // var params = 'eyeData=' + JSON.stringify(storage);
+        // http.open('POST', url, true);
+        //
+        // //Send the proper header information along with the request
+        // http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        //
+        // http.onreadystatechange=(e)=>{
+        //    console.log(http.responseText)
+        //  }
+        // http.send(params);
 
 
         // window.localStorage.setItem(localstorageLabel, JSON.stringify(storage));
@@ -11114,7 +11225,8 @@ function store_points(x, y, k) {
             alert("WebGazer works only over https. If you are doing local development you need to run a local server.");
         }
 
-        // loadGlobalData(); moved below so that the webcam can load before downloading regression data
+        loadGlobalData(); // NOT moved below so that the webcam can load before downloading regression data
+        // I think the issue here may be that chrome.storage.local.get is async
 
         onFail = onFail || function() {console.log('No stream')};
 
@@ -11142,7 +11254,7 @@ function store_points(x, y, k) {
           videoStream = null;
         });
 
-        loadGlobalData();
+        // loadGlobalData();
 
         return webgazer;
     };
